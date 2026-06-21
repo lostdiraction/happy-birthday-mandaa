@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise For You amandaa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4a0404 0%, #1a0000 100%);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #particles-container {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999; 
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            top: -10%;
+            user-select: none;
+            animation: fall linear forwards;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        #app-container {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            max-height: 896px;
+            position: relative;
+            background: linear-gradient(180deg, #590209 0%, #290002 100%);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            padding: 20px;
+            z-index: 60;
+        }
+
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        h1.cursive {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f7e1d7;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .small-text {
+            font-size: 0.8rem;
+            font-style: italic;
+            opacity: 0.7;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #2a0000;
+            color: white;
+            border: 1px solid #ff4d4d;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 100;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .envelope {
+            width: 250px;
+            height: 150px;
+            background: #e6c280;
+            position: relative;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+        .wax-seal {
+            width: 40px;
+            height: 40px;
+            background: #990000;
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .collage-container {
+            position: relative;
+            width: 100%;
+            height: 60%;
+        }
+        .photo-frame {
+            position: absolute;
+            background: white;
+            padding: 8px 8px 25px 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .photo-frame img {
+            width: 100px;
+            height: 120px;
+            object-fit: cover;
+        }
+        .center-letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fdf5e6;
+            padding: 20px;
+            color: #4a0404;
+            text-align: center;
+            border-radius: 5px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            z-index: 10;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 80%;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .menu-icon {
+            font-size: 2rem;
+            margin-right: 20px;
+        }
+        .menu-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+        }
+
+        .content-scroll {
+            width: 100%;
+            height: 80%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 50px;
+        }
+        
+        .love-letter {
+            background: #fdfdfd;
+            color: #333;
+            padding: 25px;
+            border-radius: 5px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+        .love-letter h2 {
+            font-family: 'Great Vibes', cursive;
+            color: #990000;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .video-container {
+            width: 90%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            background: #000;
+        }
+        video {
+            width: 100%;
+            max-height: 250px;
+            border: none;
+            outline: none;
+        }
+
+        .bouquet-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bouquet-img {
+            width: 90%;
+            max-width: 350px;
+            height: auto;
+            transform: translateY(100%);
+            transition: transform 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+            margin-bottom: -20px;
+        }
+
+        .screen.active .bouquet-img {
+            transform: translateY(0);
+        }
+
+        .gift-text {
+            position: absolute;
+            top: 10%;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="particles-container"></div>
+
+<div id="app-container">
+    <div id="screen-1" class="screen active">
+        <h1 class="cursive">Press the Envelope</h1>
+        <p class="small-text">tap to lanjut</p>
+        <div class="envelope" onclick="goToScreen('screen-2')">
+            <div class="wax-seal"></div>
+        </div>
+    </div>
+
+    <div id="screen-2" class="screen">
+        <div class="collage-container">
+            <div class="photo-frame" style="top: 3%; left:3%; transform: rotate(-10deg);">
+                <img src="gambar/Screenshot_20260319_113320_TikTok.jpg" alt="Foto 1">
+            </div>
+            <div class="photo-frame" style="bottom: 3%; right: 3%; transform: rotate(15deg);">
+                <img src="gambar/Screenshot_20260322_230033_Instagram.jpg" alt="Foto 2">
+            </div>
+            <div class="center-letter" onclick="goToScreen('screen-3')">
+                Happy<br>Birthday<br>Amandaa<br>
+                <span style="font-size: 1rem; font-family: 'Montserrat', sans-serif;">TAP FOR SURPRISE</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-3" class="screen">
+        <h1 class="cursive">Choose the Surprise</h1>
+        <div class="menu-list">
+            <div class="menu-item" onclick="goToScreen('screen-journey')">
+                <div class="menu-icon">📷</div>
+                <div class="menu-text">Journey</div>
+            </div>
+            <div class="menu-item" onclick="goToScreen('screen-moment')">
+                <div class="menu-icon">🥳</div>
+                <div class="menu-text">Wish</div>
+            </div>
+            <div class="menu-item" onclick="goToScreen('screen-playlist')">
+                <div class="menu-icon">💿</div>
+                <div class="menu-text">Playlist</div>
+            </div>
+            <div class="menu-item" onclick="goToScreen('screen-gift')">
+                <div class="menu-icon">🎁</div>
+                <div class="menu-text">Gift</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-journey" class="screen">
+        <div class="content-scroll">
+            <h1 class="cursive">Our Journey</h1>
+            <img src="gambar/xQNuq4CaKkGI8388DLT2Gw4KZIdQG82ZhYhqVhmB.jpg" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/IMG-20260128-WA0010.jpg" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/1744286530068.JPG" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/1744286530081.JPG" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/1744286530151.JPG" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/20251206_214106.jpg" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/20251207_110040.jpg" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/a71c3d06-40ed-4d29-934a-e9b69c310a5d.png" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/IMG-20260128-WA0001.jpg" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="gambar/IMG-20260128-WA0009.jpg" style="width: 90%; border-radius: 10px; margin-bottom: 10px; rotate: (180deg);">
+            <img src="gambar/IMG_0027.jpg" style="width: 90%; border-radius: 10px; margin-bottom: 10px;">
+        </div>
+        <button class="back-btn" onclick="goToScreen('screen-3')">BACK ◀</button>
+    </div>
+
+    <div id="screen-moment" class="screen">
+        <div class="content-scroll">
+            <div class="love-letter">
+                <h2>Special Hope</h2>
+                <p>"Happy birthday senggku🎉🥳 barakallah fi umrik sengg, Semoga sehat selalu, panjang umur, Semoga menjadi seseorang yg lebih baik lagii, semoga yg belum tercapai segera tercapai🤲🏻🥳. and if you need me, i'm always here. and I will always wait for you😌🫶"<br>From Lana</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; width: 100%;">
+                <div class="photo-frame" style="position: relative; transform: rotate(-5deg); margin: 0;">
+                    <img src="gambar/Screenshot_20260207_221413_Instagram.jpg" alt="Foto">
+                </div>
+                <div class="photo-frame" style="position: relative; transform: rotate(0deg); margin: 0;">
+                    <img src="gambar/Screenshot_20260322_230033_Instagram.jpg" alt="Foto">
+                </div>
+                <div class="photo-frame" style="position: relative; transform: rotate(5deg); margin: 0;">
+                    <img src="gambar/Screenshot_20260319_113320_TikTok.jpg" alt="Foto">
+                </div>
+            </div>
+        </div><button class="back-btn" onclick="goToScreen('screen-3')">BACK ◀</button>
+    </div>
+
+    <div id="screen-playlist" class="screen">
+        <div class="content-scroll">
+            <h1 class="cursive">Our Song</h1>
+            <div class="video-container" style="margin-bottom: 5px;">
+                <video id="main-video" controls data-src="/video/YTMP3GG_YouTube_The-1975-About-You-Official_Media_tGv7CUutzqU_001_1080p.mp4" data-thumb="https://img.youtube.com/vi/tGv7CUutzqU/hqdefault.jpg">
+                    <source src="/video/YTMP3GG_YouTube_The-1975-About-You-Official_Media_tGv7CUutzqU_001_1080p.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video.
+                </video>
+            </div>
+            <h3 id="main-video-title" style="font-size: 1.1rem; text-align: center;">About You</h3>
+            <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center;">
+                 <div class="photo-frame" onclick="tukarVideo(this)" data-src="/video/Charlie Puth - One Call Away [Official Video] - Charlie Puth (1080p).mp4" data-title="One Call Away" style="position: relative; cursor: pointer; width: 90px; padding: 5px 5px 20px 5px;">
+                     <img style="width: 100%; height: 60px; object-fit: cover;" src="https://img.youtube.com/vi/BxuY9FET9Y4/hqdefault.jpg" alt="Thumb 2">
+                     <div class="thumb-title" style="color: #333; font-size: 0.55rem; font-weight: bold; text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">One Call Away</div>
+                 </div>
+                 <div class="photo-frame" onclick="tukarVideo(this)" data-src="/video/Bruno Mars - Count on Me (Official Lyric Video) - Bruno Mars (1080p).mp4" data-title="Count On Me" style="position: relative; cursor: pointer; width: 90px; padding: 5px 5px 20px 5px;">
+                     <img style="width: 100%; height: 60px; object-fit: cover;" src="https://img.youtube.com/vi/6k8cpUkKK4c/hqdefault.jpg" alt="Thumb 3">
+                     <div class="thumb-title" style="color: #333; font-size: 0.55rem; font-weight: bold; text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">About You</div>
+                 </div>
+                 <div class="photo-frame" onclick="tukarVideo(this)" data-src="/video/Backstreet Boys - Shape Of My Heart (Official HD Video) - Backstreet Boys (1080p).mp4" data-title="Shape Of My Heart" style="position: relative; cursor: pointer; width: 90px; padding: 5px 5px 20px 5px;">
+                     <img style="width: 100%; height: 60px; object-fit: cover;" src="https://img.youtube.com/vi/OT5msu-dap8/hqdefault.jpg" alt="Thumb 4">
+                     <div class="thumb-title" style="color: #333; font-size: 0.55rem; font-weight: bold; text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">shape Of My Heart</div>
+                 </div>
+            </div>
+        </div>
+        <button class="back-btn" onclick="goToScreen('screen-3')">BACK ◀</button>
+    </div>
+
+    <div id="screen-gift" class="screen">
+        <div class="bouquet-container">
+            <div class="gift-text">
+                <h1 class="cursive">A Special Gift</h1>
+                <p>A beautiful bouquet for a beautiful soul. ❤️</p>
+            </div>
+            <img src="bouquet1.png" class="bouquet-img" alt="Bouquet Bunga">
+        </div>
+        <button class="back-btn" onclick="goToScreen('screen-3')">BACK ◀</button>
+    </div>
+
+</div>
+
+<script>
+    // Fungsi berpindah antar layar
+    function goToScreen(screenId) {
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(screen => {
+            screen.classList.remove('active');
+        });
+
+        const activeScreen = document.getElementById(screenId);
+        if(activeScreen) {
+            activeScreen.classList.add('active');
+        }
+
+        // Matikan video jika user pindah ke menu lain
+        const mainVideo = document.getElementById('main-video');
+        if (screenId !== 'screen-playlist' && mainVideo) {
+            mainVideo.pause();
+        }
+    }
+
+    // Fungsi Partikel Penuh Layar
+    function ciptakanPartikel() {
+        const container = document.getElementById('particles-container');
+        const simbolPartikel = ['🌸', '✨', '💖', '⭐', '💮'];
+
+        setInterval(() => {
+            const partikel = document.createElement('div');
+            partikel.classList.add('particle');
+            
+            partikel.innerText = simbolPartikel[Math.floor(Math.random() * simbolPartikel.length)];
+            partikel.style.left = Math.random() * 100 + 'vw';
+            partikel.style.fontSize = (Math.random() * 20 + 15) + 'px'; 
+            
+            const durasiAnimasi = Math.random() * 4 + 5; 
+            partikel.style.animationDuration = durasiAnimasi + 's';
+            
+            container.appendChild(partikel);
+            
+            setTimeout(() => {
+                partikel.remove();
+            }, durasiAnimasi * 1000);
+        }, 200); 
+    }
+
+    // Eksekusi ketika web dimuat
+    document.addEventListener("DOMContentLoaded", () => {
+        ciptakanPartikel();
+    });
+
+    // Fungsi Tukar Video Lokal
+    function tukarVideo(elemenYangDiklik) {
+        const mainVideo = document.getElementById('main-video');
+        const mainTitleEl = document.getElementById('main-video-title');
+        const imgThumbnail = elemenYangDiklik.querySelector('img');
+        const thumbTitleEl = elemenYangDiklik.querySelector('.thumb-title');
+
+        // Ambil data video lama
+        const srcLama = mainVideo.getAttribute('data-src');
+        const thumbLama = mainVideo.getAttribute('data-thumb');
+        const judulLama = mainTitleEl.innerText;
+
+        // Ambil data video baru
+        const srcBaru = elemenYangDiklik.getAttribute('data-src');
+        const thumbBaru = imgThumbnail.src;
+        const judulBaru = elemenYangDiklik.getAttribute('data-title');
+
+        // Tukar ke Atas (Video Utama)
+        mainVideo.src = srcBaru;
+        mainVideo.setAttribute('data-src', srcBaru);
+        mainVideo.setAttribute('data-thumb', thumbBaru);
+        mainTitleEl.innerText = judulBaru;
+        mainVideo.play(); 
+
+        // Tukar ke Bawah (Thumbnail Kecil)
+        elemenYangDiklik.setAttribute('data-src', srcLama);
+        elemenYangDiklik.setAttribute('data-title', judulLama);
+        imgThumbnail.src = thumbLama;
+        thumbTitleEl.innerText = judulLama;
+    }
+</script>
+
+</body>
+</html>
